@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def tool_list(request):
+    return render(request, 'tool_rental/tool_list.html', {})
