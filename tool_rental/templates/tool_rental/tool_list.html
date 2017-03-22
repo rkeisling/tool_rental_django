@@ -10,11 +10,14 @@
         <div>
             <h1><a href="/">Some Tools Right Here</a></h1>
         </div>
-        {% for tool in tools %}
+        {% for tool in equip %}
         <div>
             <h2><a href="">{{ tool.tool_name }}</a></h2>
             <p>Tool Description: {{ tool.tool_descrip|linebreaksbr }}</p>
-            <p>Price: {{ tool.price }}</p>
+            <p>Day Price: {{ tool.day_price }}</p>
+            <p>Week Price: {{ tool.week_price }}</p>
+            <p>Month Price: {{ tool.month_price }}</p>
+            <p>Number Available: {{ tool.num_available }}</p>
             <p>Date Added: {{ tool.date_added }}</p>
             <p>Date Last Rented: {{ tool.date_rented }}</p>
         </div>

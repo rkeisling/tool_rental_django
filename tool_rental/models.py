@@ -10,7 +10,9 @@ class Tool(models.Model):
     """
     tool_name = models.CharField(max_length=50)
     tool_descrip = models.TextField()
-    price = models.FloatField()
+    day_price = models.FloatField(default=0)
+    week_price = models.FloatField(default=0)
+    month_price = models.FloatField(default=0)
     date_added = models.DateTimeField(default=timezone.now())
     date_rented = models.DateTimeField(blank=True, null=True)
     num_available = models.IntegerField(default=0)
@@ -18,15 +20,13 @@ class Tool(models.Model):
     def __str__(self):
         return self.tool_name
 
-    def is_expensive(self):
-        """
-        Returns a bool on whether or not the item is expensive (over 150 dollars).
-        """
-        return self.price > 150
-
     def rent(self):
         """
         Removes item from inventory, changes date rented to whenever it was rented.
         """
+        if self.num_available > 0:
+            self.num_available -= 1
+        else:
+            return "Sorry, that item is not available!"
         self.date_rented = timezone.now()
         self.save()
