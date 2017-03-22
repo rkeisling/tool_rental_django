@@ -13,6 +13,7 @@ class Tool(models.Model):
     price = models.FloatField()
     date_added = models.DateTimeField(default=timezone.now())
     date_rented = models.DateTimeField(blank=True, null=True)
+    num_available = models.IntegerField(default=0)
 
     def __str__(self):
         return self.tool_name
