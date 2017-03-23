@@ -16,3 +16,11 @@ def pricing(request):
 
 def rules(request):
     return render(request, 'tool_rental/rules.html', {})
+
+def rent_tool(request):
+    if request.is_ajax:
+        tool = Tool.objects.get(tool_name=request[name])
+        tool.rent()
+        tool.save()
+    else:
+        return HttpRequest(status=400)

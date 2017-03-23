@@ -20,11 +20,11 @@ var prices_month = {
     'air compressor': 60,
     'generator': 100
 };
-$(function () {
-    $("#submit").click(function () {
-        var selectedText = $("#tools").find("option:selected").text();
-        var selectedValue = $("#tools").val();
-        var enteredDays = $("#num_days").val();
+$("#submit").click(function () {
+    var selectedText = $("#tools").find("option:selected").text();
+    var selectedValue = $("#tools").val();
+    var enteredDays = $("#num_days").val();
+    $.post("rent_tool/", {name: selectedText, days: enteredDays}, function () {
         if (enteredDays === 1) {
             total=(prices_day[selectedValue]*enteredDays)*1.07
         }
