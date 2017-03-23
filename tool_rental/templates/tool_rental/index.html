@@ -116,7 +116,7 @@
         <label class="drop">Select Tool:</label>
         <select id="tools" class="tool">
           {% for tool in equip %}
-            <option class="drop" value="{{ tool.tool_name }}">{{ tool.tool_name }}</option>
+            <option class="drop" value="{{ tool.tool_name|lower }}">{{ tool.tool_name }}</option>
           {% endfor %}
         </select>
     </form>
@@ -246,6 +246,7 @@
             interval: 7500 //changes the speed
         })
     </script>
+    <script src="{% static 'javascript/dynamic.js' %}"></script>
   </body>
   <!--Descriptions of tools taken from Home Depot website (included in links to 'More info' under descriptions).
   Side note on pricing page taken from http://www.popularmechanics.com/home/tools/reviews/g996/8-tools-you-should-rent-and-not-buy/ and https://www.lowesforpros.com/articles/blog-should-you-buy-or-rent-tools_a4862.html .-->
