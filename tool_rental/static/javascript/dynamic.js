@@ -20,20 +20,36 @@ var prices_month = {
     'air compressor': 60,
     'generator': 100
 };
-$("#submit").click(function () {
-    var selectedText = $("#tools").find("option:selected").text();
-    var selectedValue = $("#tools").val();
-    var enteredDays = $("#num_days").val();
-    $.post("rent_tool/", {name: selectedText, days: enteredDays}, function () {
+$(function () {
+    $("#product-form").on("submit", function (e) {
+        e.preventDefault();
+
+        var selectedText = $("#tools").find("option:selected").text();
+        var selectedValue = $("#tools").val();
+        var enteredDays = $("#num_days").val();
         if (enteredDays === 1) {
-            total=(prices_day[selectedValue]*enteredDays)*1.07
+            total = (prices_day[selectedValue] * enteredDays) * 1.07
+        } else if (enteredDays > 1 && enteredDays < 8) {
+            total = (prices_week[selectedValue] * enteredDays) * 1.07
+        } else {
+            total = (prices_month[selectedValue] * enteredDays) * 1.07
         }
-        else if (enteredDays > 1 && enteredDays < 8) {
-            total=(prices_week[selectedValue]*enteredDays)*1.07
-        }
-        else {
-            total=(prices_month[selectedValue]*enteredDays)*1.07
-        }
-        $("#rented_modal").html("Item: " + selectedText + "<br/>Days Renting: " + enteredDays + "<br/>Amount Owed: $" + (total).toFixed(2));
+        // $("#rented_modal").html("Item: " + selectedText + "<br/>Days Renting: " + enteredDays + "<br/>Amount Owed: $" + (total).toFixed(2));
+
+        $.ajax({
+            url: "rent_tool/",
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                tool: selectedValue,
+                rentDays: enteredDays
+            },
+            method: "POST",
+            success: function (data) {
+                $("#rented_modal").html("Item: " + selectedText + "<br/>Days Renting: " + enteredDays + "<br/>Amount Owed: $" + (total).toFixed(2));
+            },
+            error: function (data) {
+                alert("There was an error.");
+            }
+        });
     });
 });

@@ -9,11 +9,6 @@ class Tool(models.Model):
     Models a tool.
     """
     tool_name = models.CharField(max_length=50)
-    tool_descrip = models.TextField()
-    day_price = models.FloatField(default=0)
-    week_price = models.FloatField(default=0)
-    month_price = models.FloatField(default=0)
-    date_added = models.DateTimeField(default=timezone.now())
     date_rented = models.DateTimeField(blank=True, null=True)
     num_available = models.IntegerField(default=0)
 

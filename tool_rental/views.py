@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Tool
 from django.utils import timezone
+from .forms import RentTool
 
 
 def tool_list(request):
@@ -18,9 +19,12 @@ def rules(request):
     return render(request, 'tool_rental/rules.html', {})
 
 def rent_tool(request):
-    if request.is_ajax:
-        tool = Tool.objects.get(tool_name=request[name])
-        tool.rent()
-        tool.save()
+    if request.method == "POST":
+        form = RentTool(request.POST)
+        if form.is_valid():
+            tool = form.save(commit=False)
+            tool.num_available -= 1
+            tool.save()
     else:
-        return HttpRequest(status=400)
+        form = RentTool()
+    return render(request, 'tool_rental/index.html', {'form': form})
