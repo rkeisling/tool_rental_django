@@ -81,11 +81,14 @@ body {
     color: #212121;
     font-size: 125%;
 }
-
 #thanks {
     width: 100%;
     height: 60%;
     float: right;
+}
+#trans_info {
+    font-size: 120%;
+    text-align: center;
 }
 @media only screen and (max-device-width: 480px) {
     #pricing_table {

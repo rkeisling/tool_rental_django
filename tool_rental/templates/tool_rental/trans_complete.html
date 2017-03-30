@@ -1,11 +1,15 @@
 {% extends 'tool_rental/base.html' %} {% block content %}
-<p>
+<center>
+<h2>
+    <b>
     Your transaction has been completed!
+    </b>
     <br />
     Item: {{ tool }}
     <br />
     Days Renting: {{ days }}
     <br />
-    Amount Owed: $ {{ owed }}
-</p>
+    Amount Owed: ${{ owed }}
+</h2>
+</center>
 {% endblock %}
