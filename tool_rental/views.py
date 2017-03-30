@@ -1,12 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Tool
-from django.utils import timezone
 from .forms import RentTool
-
-
-def tool_list(request):
-    equip = Tool.objects.all()
-    return render(request, 'tool_rental/tool_list.html', {'equip': equip})
+from django.contrib import messages
 
 def home(request):
     equip = Tool.objects.all()
@@ -18,13 +13,26 @@ def pricing(request):
 def rules(request):
     return render(request, 'tool_rental/rules.html', {})
 
+def error(request):
+    return render(request, 'tool_rental/error.html', {})
+
 def rent_tool(request):
     if request.method == "POST":
         form = RentTool(request.POST)
         if form.is_valid():
-            tool = form.save(commit=False)
-            tool.num_available -= 1
-            tool.save()
+            try:
+                tool_id = form.cleaned_data['tool_name']
+                days = form.cleaned_data['days_renting']
+                curr_tool = Tool.objects.get(id=tool_id)
+                curr_tool.rent()
+                curr_tool.save()
+                return render(request,
+                              'tool_rental/trans_complete.html',
+                              {'tool': curr_tool.tool_name,
+                               'days': days,
+                               'owed': 0})
+            except TypeError:
+                return redirect('error')
     else:
         form = RentTool()
-    return render(request, 'tool_rental/index.html', {'form': form})
+        return render(request, 'tool_rental/index.html', {'form': form})

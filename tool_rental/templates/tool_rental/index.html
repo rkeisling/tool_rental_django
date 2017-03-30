@@ -73,18 +73,19 @@
   <div class="col-md-12 col-sm-12">
     <center>
       <label class="drop">Select Tool:</label>
-      <form id="product-form" method="POST" class="post-form">
+      <form id="product-form" method="POST" class="post-form" action="rent_tool/">
         {% csrf_token %}
-        <select id="tools" class="tool">
+        <!--<select id="tools" class="tool">
                 {% for tool in equip %}
-                  <option class="drop" value="{{ tool.tool_name|lower }}">{{ tool.tool_name }}</option>{{ form.as_p }}
+                  <option class="drop" value="{{ tool.tool_name|lower }}">{{ tool.tool_name }}</option>
                 {% endfor %}
               </select>
         <br />
         <br />
         <input placeholder="Days Renting" id="num_days" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
-        <br /><br /> 
-        <button id="submit" class="btn btn-lg" data-toggle="modal" data-target="#rental">Submit</button>
+        <br /><br />-->
+        {{ form.as_p }}
+        <input type="submit" id="submit" value="Submit" class="btn btn-lg"></input>
       </form>
     </center>
   </div>
