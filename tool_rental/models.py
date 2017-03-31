@@ -20,10 +20,7 @@ class Tool(models.Model):
         """
         Removes item from inventory, changes date rented to whenever it was rented.
         """
-        if self.num_available > 0:
-            self.num_available -= 1
-            self.num_rented += 1
-            self.date_last_rented = timezone.now()
-            self.save()
-        else:
-            return "Sorry, that item is not available!"
+        self.num_available -= 1
+        self.num_rented += 1
+        self.date_last_rented = timezone.now()
+        self.save()
