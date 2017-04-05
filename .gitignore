@@ -10,5 +10,4 @@ lib
 lib64
 *.pyc
 *.pyo
-db.sqlite3
 *.json
