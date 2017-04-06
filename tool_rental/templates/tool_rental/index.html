@@ -72,7 +72,9 @@
 <div class="row">
   <div class="col-md-12 col-sm-12">
     <center>
-      <label class="drop">Select Tool:</label>
+      <button data-toggle="modal" data-target="#stocked_modal" class=btn btn-lg drop>Click here to see what's currently in stock</button>
+      <br />
+      <br />
       <form id="product-form" method="POST" class="drop" action="rent_tool/">
         {% csrf_token %}
         {{ form.as_p }}
@@ -189,15 +191,21 @@
     </div>
   </div>
 </div>
-<div id="rental" class="modal fade" role="dialog">
+<div id="stocked_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Rental Information</h4>
+        <h4 class="modal-title">Items in Stock</h4>
       </div>
-      <div class="modal-body" id="rented_modal">
-        this is a placeholder
+      <div class="modal-body" id="stocked_modal">
+        <ul>
+        {% for each in in_stock %}
+          <li>
+            {{ each }}
+          </li>
+        {% endfor %}
+        </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -60,5 +60,6 @@ def rent_tool(request):
             except TypeError:
                 return redirect('error')
     else:
+        in_stock = Tool.objects.filter(num_available__gte=1)
         form = RentTool()
-        return render(request, 'tool_rental/index.html', {'form': form})
+        return render(request, 'tool_rental/index.html', {'form': form, 'in_stock': in_stock})
