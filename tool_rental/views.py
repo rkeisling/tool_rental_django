@@ -3,10 +3,6 @@ from .models import Tool
 from .forms import RentTool
 from django.contrib import messages
 
-def home(request):
-    equip = Tool.objects.all()
-    return render(request, 'tool_rental/index.html', {'equip': equip})
-
 def pricing(request):
     return render(request, 'tool_rental/pricing.html', {})
 
