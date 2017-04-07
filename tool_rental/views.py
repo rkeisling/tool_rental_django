@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Tool
 from .forms import RentTool
-from django.contrib import messages
 
 def pricing(request):
     return render(request, 'tool_rental/pricing.html', {})
