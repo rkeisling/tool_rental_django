@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Tool(models.Model):
     """
-    Models a tool.
+    Models a tool that can be rented using the rent function.
     """
     tool_name = models.CharField(max_length=50)
     num_available = models.IntegerField(default=0)

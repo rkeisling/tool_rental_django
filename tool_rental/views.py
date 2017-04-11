@@ -3,15 +3,28 @@ from .models import Tool
 from .forms import RentTool
 
 def pricing(request):
+    """
+    Goes to the pricing page.
+    """
     return render(request, 'tool_rental/pricing.html', {})
 
 def rules(request):
+    """
+    Goes to the terms and conditions page.
+    """
     return render(request, 'tool_rental/rules.html', {})
 
 def error(request):
+    """
+    Goes to the 'error' page; usually happens when a user tries to rent an
+    item that is out of stock.
+    """
     return render(request, 'tool_rental/error.html', {})
 
 def calc_price(days, tool):
+    """
+    Calculates the price of a tool for however many days it's being rented.
+    """
     prices = {'prices_day': {'auger': 80,
                              'nailgun': 40,
                              'tilesaw': 60,
@@ -35,6 +48,10 @@ def calc_price(days, tool):
         return (days*prices['prices_month'][str(tool).lower()])*1.07
 
 def rent_tool(request):
+    """
+    Goes to the home page, error page, or receipt page; has different outcomes
+    depending on user input and request type.
+    """
     if request.method == "POST":
         form = RentTool(request.POST)
         if form.is_valid():
